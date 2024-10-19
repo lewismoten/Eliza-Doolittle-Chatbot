@@ -137,9 +137,25 @@ setNParamList(string param, integer n, list value) {
     }
     if(paramLines != 0) text += ",\n";
     else text += "\n";
-    text += "  " + param + ", " + (string)n + ", " + llList2CSV(fixed);
+    text += "  " + param + ", " + (string)n + ", " + constants(llList2CSV(fixed));
     addText(text);
     paramLines++;
+}
+string replace(string haystack, string needle, string replacement) {
+    integer i = llSubStringIndex(haystack, needle);
+    if(i == -1) return haystack;
+    haystack = llDeleteSubString(haystack, i, i + llStringLength(needle)-1);
+    return llInsertString(haystack, i, replacement);
+}
+string quote(string value) {
+    return "\"" + value + "\"";
+}
+string constants(string value) {
+    value = replace(value, quote(TEXTURE_BLANK), "TEXTURE_BLANK");
+    value = replace(value, quote(TEXTURE_TRANSPARENT), "TEXTURE_TRANSPARENT");
+    value = replace(value, quote(TEXTURE_PLYWOOD), "TEXTURE_PLYWOOD");
+    value = replace(value, quote(TEXTURE_MEDIA), "TEXTURE_MEDIA");
+    return value;
 }
 setParamList(string param, list value) {
     string text = "";
@@ -474,8 +490,8 @@ showInventory() {
         return;
     }
     addText("\n\n# Inventory\n\n");
-    addText("| Name | Type | Key | Move | Modify | Copy | Transfer | Acquired |");
-    addText("| --- | --- | --- | --- | --- | --- | --- | --- |");
+    addText("| Name | Type | Key | Move | Modify | Copy | Transfer | Acquired |\n");
+    addText("| --- | --- | --- | --- | --- | --- | --- | --- |\n");
     inventoryNumber = 0;
     showInventoryItem();
     
@@ -501,7 +517,7 @@ default
 {
     state_entry()
     {
-        integer showMarkdown = TRUE;
+        integer showMarkdown = FALSE;
         if(showMarkdown) {
             showGeneralMarkdown();
         } else {
