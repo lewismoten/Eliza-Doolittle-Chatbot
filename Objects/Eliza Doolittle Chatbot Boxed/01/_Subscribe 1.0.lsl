@@ -69,7 +69,7 @@ default
             llHTTPRequest(url, [HTTP_METHOD, "POST", HTTP_MIMETYPE, "application/x-www-form-urlencoded"], body);
             return;
         }
-        if(message == "Subscribe")
+        if(message == "Unsubscribe")
         {
             string name = llStringToBase64(listName);
             string id = llStringToBase64((string)id);
