@@ -155,6 +155,8 @@ string constants(string value) {
     value = replace(value, quote(TEXTURE_TRANSPARENT), "TEXTURE_TRANSPARENT");
     value = replace(value, quote(TEXTURE_PLYWOOD), "TEXTURE_PLYWOOD");
     value = replace(value, quote(TEXTURE_MEDIA), "TEXTURE_MEDIA");
+    // Old X-alpha by Christopher Fassbinder
+    value = replace(value, quote("236c39da-3bf7-25ac-b2d7-867d66616420"), "TEXTURE_TRANSPARENT");
     return value;
 }
 setParamList(string param, list value) {
